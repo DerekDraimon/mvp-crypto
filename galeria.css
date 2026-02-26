@@ -1,0 +1,121 @@
+.subtitulo {
+    text-align: center;
+    color: #94a3b8;
+    margin-top: -10px;
+    margin-bottom: 40px;
+    font-size: 0.95rem;
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.item {
+    border-radius: 16px;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.item-rojo {
+    background: linear-gradient(135deg, #1e293b 60%, #3d1a1a);
+}
+
+.item-morado {
+    background: linear-gradient(135deg, #1e293b 60%, #2a1a3d);
+}
+
+.item-azul {
+    background: linear-gradient(135deg, #1e293b 60%, #1a253d);
+}
+
+.item-verde {
+    background: linear-gradient(135deg, #1e293b 60%, #1a2e20);
+}
+
+.item-amarillo {
+    background: linear-gradient(135deg, #1e293b 60%, #2e2710);
+}
+
+.item-rosa {
+    background: linear-gradient(135deg, #1e293b 60%, #3d1a2e);
+}
+
+.item_icono {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.item_anio {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 4px;
+}
+
+.item-rojo .item_anio {
+    background-color: #ef444420;
+    color: #f87171;
+}
+
+.item-morado .item_anio {
+    background-color: #a855f720;
+    color: #c084fc;
+}
+
+.item-azul .item_anio {
+    background-color: #3b82f620;
+    color: #60a5fa;
+}
+
+.item-verde .item_anio {
+    background-color: #22c55e20;
+    color: #4ade80;
+}
+
+.item-amarillo .item_anio {
+    background-color: #eab30820;
+    color: #facc15;
+}
+
+.item-rosa .item_anio {
+    background-color: #ec489920;
+    color: #f472b6;
+}
+
+.item_titulo {
+    margin: 0;
+    font-size: 1rem;
+    color: #f1f5f9;
+    font-weight: 600;
+}
+
+.item_precio {
+    margin: 4px 0 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fbbf24;
+}
+
+.item_detalle {
+    margin: 6px 0 0;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
