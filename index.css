@@ -24,6 +24,8 @@ main {
     justify-content: center;
     max-width: 1000px;
     margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
 }
 
 footer {
@@ -31,4 +33,11 @@ footer {
     color: #64748b;
     margin-top: 60px;
     font-size: 0.9rem;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }

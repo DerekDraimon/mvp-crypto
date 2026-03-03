@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../style/estilos.css">
+    <title>Luz</title>
+
+    <style>
+    
+        .foco {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #334155;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #1a1a2e;
+        }
+
+        .foco.encendido {
+            background-color: #ffe066;
+            box-shadow: 0 0 50px 15px #ffe066;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <section>
+            <div class="foco" id="miFoco"><p id="nombre"></p></div>
+            <button onclick="cambiarLuz()">Encender / Apagar</button>
+        </section>
+    </main>
+
+    <script>
+        var nombres = ["Carlos", "Sofía", "Miguel", "Valentina", "Andrés", "Camila", "Diego", "Lucía", "Sebastián", "Mariana"];
+
+        function cambiarLuz() {
+            var foco = document.getElementById("miFoco");
+            var nombre = document.getElementById("nombre");
+
+            if (foco.classList.contains("encendido")) {
+                foco.classList.remove("encendido");
+                nombre.textContent = "";
+            } else {
+                foco.classList.add("encendido");
+                var aleatorio = Math.floor(Math.random() * nombres.length);
+                nombre.textContent = nombres[aleatorio];
+            }
+        }
+    </script>
+
+</body>
+</html>
+

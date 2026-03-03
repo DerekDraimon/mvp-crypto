@@ -49,6 +49,17 @@ section {
     margin-right: auto;
 }
 
+
+button {
+    padding: 12px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ff3399, #a45ee5);
+    color: white;
+    cursor: pointer;
+}
+
 hr {
     border-color: #334155;
     margin: 40px 0;
