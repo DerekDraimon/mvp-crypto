@@ -1,0 +1,35 @@
+.nav-menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #1e293b;
+  border-left: 1px solid #334155;
+  padding: 2rem 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu li {
+  margin-bottom: 1.5rem;
+}
+
+.nav-menu a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+  display: block;
+}
+
+.nav-menu a:hover {
+  color: #38bdf8;
+}
