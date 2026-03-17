@@ -3,6 +3,7 @@ import Section from './components/Section'
 import Footer from './components/Footer'
 import ProfileCard from './components/ProfileCard'
 import Gallery from './components/Gallery'
+import MiniX from './mini-x'
 
 function App() {
 
@@ -34,11 +35,13 @@ function App() {
           <Section id="historicos" title="Sección de Históricos">
             <Gallery />
           </Section>
-          
+
           <Section id="comentarios" title="Sección de Comentarios">
             <p>Zona para leer y dejar comentarios.</p>
           </Section>
         </main>
+
+        <MiniX />
 
         <Footer />
       </div>
