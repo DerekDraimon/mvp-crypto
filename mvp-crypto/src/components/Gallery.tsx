@@ -21,8 +21,7 @@ const GalleryItem = ({ icon, year, title, price, detail, colorClass }: GalleryIt
   );
 };
 
-const Gallery = () => {
-  const items: GalleryItemProps[] = [
+const items: GalleryItemProps[] = [
     {
       icon: "🌱",
       year: "2009",
@@ -73,6 +72,7 @@ const Gallery = () => {
     }
   ];
 
+const Gallery = () => {
   return (
     <div className="galeria">
       {items.map((item, index) => (
