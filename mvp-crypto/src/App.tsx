@@ -1,132 +1,159 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header'
-import Section from './components/Section'
-import Footer from './components/Footer'
-import ProfileCard from './components/ProfileCard'
-import Gallery from './components/Gallery'
-import Semaforo from './components/Semaforo'
-import MiniX from './mini-x'
+import { useState } from 'react';
+import { 
+  Box, 
+  CssBaseline, 
+  AppBar, 
+  Toolbar, 
+  IconButton, 
+  Typography, 
+  ThemeProvider, 
+  createTheme 
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import BarraLateral from './components/BarraLateral';
+import PanelCriptos from './components/PanelCriptos';
+import SeccionNoticias from './components/SeccionNoticias';
+import ForoComentarios from './components/ForoComentarios';
 
-function App() {
-  const [showCart, setShowCart] = useState(false)
-  const [purchaseCompleted, setPurchaseCompleted] = useState(false)
+const anchoMenuLateral = 240;
 
-  const cartItems = [
-    { name: 'Bitcoin', price: '$69,000' },
-    { name: 'Ethereum', price: '$3,500' },
-    { name: 'Solana', price: '$180' },
-  ]
+const temaGlobal = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#1C4E80',
+      contrastText: '#FFFFFF',
+    },
+    secondary: {
+      main: '#7EA6E0',
+      contrastText: '#000000',
+    },
+    error: {
+      main: '#D32D41',
+      contrastText: '#FFFFFF',
+    },
+    warning: {
+      main: '#ECA10C',
+      contrastText: '#000000',
+    },
+    info: {
+      main: '#0091D5',
+      contrastText: '#FFFFFF',
+    },
+    success: {
+      main: '#6AB187',
+      contrastText: '#000000',
+    },
+    background: {
+      default: '#191E23',
+      paper: '#23282E',
+    },
+    text: {
+      primary: '#D5D5D5',
+      secondary: '#A6A6A6',
+    }
+  },
+  shape: {
+    borderRadius: 4,
+  },
+  typography: {
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+          textTransform: 'none',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+          backgroundImage: 'none',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+        }
+      }
+    }
+  },
+});
 
-  const openCartModal = () => {
-    setShowCart(true)
-    setPurchaseCompleted(false)
-  }
+export default function App() {
+  const [menuMovilAbierto, setMenuMovilAbierto] = useState(false);
+  const [seccionActiva, setSeccionActiva] = useState('panel');
 
-  const closeCartModal = () => {
-    setShowCart(false)
-    setPurchaseCompleted(false)
-  }
+  const alternarMenu = () => {
+    setMenuMovilAbierto(!menuMovilAbierto);
+  };
 
-  const getPriceNumber = (price: string) => {
-    const cleanPrice = price.replace(/[^0-9.]/g, '')
-    return Number(cleanPrice) || 0
-  }
-
-  const total = cartItems.reduce((accumulator, item) => accumulator + getPriceNumber(item.price), 0)
-
-  const handlePay = () => {
-    setPurchaseCompleted(true)
-  }
+  const mostrarContenido = () => {
+    switch(seccionActiva) {
+      case 'panel':
+        return <PanelCriptos />;
+      case 'noticias':
+        return <SeccionNoticias />;
+      case 'comentarios':
+        return <ForoComentarios />;
+      default:
+        return <PanelCriptos />;
+    }
+  };
 
   return (
-    <>
-      <div className="body">
-        <Header />
-
-        <main>
-          <Section id="grafica" title="Sección de Gráficas">
-            <p>Aquí iría el contenido visual de las gráficas.</p>
-            <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-              <ProfileCard
-                avatar="😐"
-                name="Estudiante Master"
-                role="Web Developer Apprentice"
-              />
-              <ProfileCard
-                avatar="🚀"
-                name="Crypto Expert"
-                role="Senior Analyst"
-                buttonText="Investigar"
-              />
-            </div>
-          </Section>
-
-          <hr />
-
-          <Section id="historicos" title="Sección de Históricos">
-            <div className="cart-actions">
-              <button className="cart-button" type="button" onClick={openCartModal}>
-                Ver lista de compra
-              </button>
-            </div>
-            <Gallery />
-          </Section>
-
-          <Section id="comentarios" title="Sección de Comentarios">
-            <p>Zona para leer y dejar comentarios.</p>
-            <Semaforo />
-          </Section>
-        </main>
-
-        <MiniX />
-
-        <Footer />
-
-        {showCart && (
-          <div className="modal-overlay">
-            <div className="cart-modal">
-              <button className="close-button" type="button" onClick={closeCartModal}>
-                X
-              </button>
-
-              {!purchaseCompleted ? (
-                <>
-                  <h2>Productos seleccionados</h2>
-
-                  <ul className="cart-list">
-                    {cartItems.map((item, index) => (
-                      <li className="cart-item" key={`${item.name}-${index}`}>
-                        <span>{item.name}</span>
-                        <span>{item.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="cart-total">
-                    <span>Total</span>
-                    <strong>${total.toLocaleString('en-US')}</strong>
-                  </div>
-
-                  <button className="pay-button" type="button" onClick={handlePay}>
-                    Pagar
-                  </button>
-                </>
-              ) : (
-                <div className="success-box">
-                  <h2>Compra exitosa</h2>
-                  <p>El pago se realizó correctamente.</p>
-                  <button className="pay-button" type="button" onClick={closeCartModal}>
-                    Cerrar
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    </>
-  )
+    <ThemeProvider theme={temaGlobal}>
+      <Box sx={{ display: 'flex', minHeight: '100vh', width: '100vw' }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          elevation={1}
+          sx={{
+            width: { sm: `calc(100% - ${anchoMenuLateral}px)` },
+            ml: { sm: `${anchoMenuLateral}px` },
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            backgroundImage: 'none',
+          }}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="abrir menu"
+              edge="start"
+              onClick={alternarMenu}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
+              {seccionActiva === 'panel' && 'Panel de Control'}
+              {seccionActiva === 'noticias' && 'Noticias Crypto'}
+              {seccionActiva === 'comentarios' && 'Comentarios de la Comunidad'}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        
+        <BarraLateral 
+          seccionActiva={seccionActiva} 
+          setSeccionActiva={setSeccionActiva} 
+          menuMovilAbierto={menuMovilAbierto}
+          alternarMenu={alternarMenu}
+        />
+        
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${anchoMenuLateral}px)` }, mt: 8 }}
+        >
+          {mostrarContenido()}
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
 }
-
-export default App
