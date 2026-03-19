@@ -13,6 +13,7 @@ import {
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import ForumIcon from '@mui/icons-material/Forum';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 
 const anchoMenuLateral = 240;
 
@@ -31,6 +32,7 @@ export default function BarraLateral({ seccionActiva, setSeccionActiva, menuMovi
     { id: 'panel', etiqueta: 'Panel de Control', icono: <DashboardIcon /> },
     { id: 'noticias', etiqueta: 'Noticias', icono: <ArticleIcon /> },
     { id: 'comentarios', etiqueta: 'Comentarios', icono: <ForumIcon /> },
+    { id: 'tareas', etiqueta: 'Lista de Tareas', icono: <ChecklistIcon /> },
   ];
 
   const contenidoMenu = (

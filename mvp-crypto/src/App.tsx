@@ -14,6 +14,7 @@ import BarraLateral from './components/BarraLateral';
 import PanelCriptos from './components/PanelCriptos';
 import SeccionNoticias from './components/SeccionNoticias';
 import ForoComentarios from './components/ForoComentarios';
+import ListaTareas from './components/ListaTareas';
 
 const anchoMenuLateral = 240;
 
@@ -102,6 +103,8 @@ export default function App() {
         return <SeccionNoticias />;
       case 'comentarios':
         return <ForoComentarios />;
+      case 'tareas':
+        return <ListaTareas />;
       default:
         return <PanelCriptos />;
     }
@@ -136,6 +139,7 @@ export default function App() {
               {seccionActiva === 'panel' && 'Panel de Control'}
               {seccionActiva === 'noticias' && 'Noticias Crypto'}
               {seccionActiva === 'comentarios' && 'Comentarios de la Comunidad'}
+              {seccionActiva === 'tareas' && 'Lista de Tareas'}
             </Typography>
           </Toolbar>
         </AppBar>
