@@ -1,22 +1,18 @@
-import { useState } from 'react';
-import { 
-  Box, 
-  CssBaseline, 
-  AppBar, 
-  Toolbar, 
-  IconButton, 
-  Typography, 
-  ThemeProvider, 
-  createTheme 
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import BarraLateral from './components/BarraLateral';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+
+import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
+
+import Login from './pages/Login';
+import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+
 import PanelCriptos from './components/PanelCriptos';
 import SeccionNoticias from './components/SeccionNoticias';
 import ForoComentarios from './components/ForoComentarios';
 import ListaTareas from './components/ListaTareas';
-
-const anchoMenuLateral = 240;
 
 const temaGlobal = createTheme({
   palette: {
@@ -52,7 +48,7 @@ const temaGlobal = createTheme({
     text: {
       primary: '#D5D5D5',
       secondary: '#A6A6A6',
-    }
+    },
   },
   shape: {
     borderRadius: 4,
@@ -81,83 +77,40 @@ const temaGlobal = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 });
 
 export default function App() {
-  const [menuMovilAbierto, setMenuMovilAbierto] = useState(false);
-  const [seccionActiva, setSeccionActiva] = useState('panel');
-
-  const alternarMenu = () => {
-    setMenuMovilAbierto(!menuMovilAbierto);
-  };
-
-  const mostrarContenido = () => {
-    switch(seccionActiva) {
-      case 'panel':
-        return <PanelCriptos />;
-      case 'noticias':
-        return <SeccionNoticias />;
-      case 'comentarios':
-        return <ForoComentarios />;
-      case 'tareas':
-        return <ListaTareas />;
-      default:
-        return <PanelCriptos />;
-    }
-  };
-
   return (
-    <ThemeProvider theme={temaGlobal}>
-      <Box sx={{ display: 'flex', minHeight: '100vh', width: '100vw' }}>
+    <BrowserRouter>
+      <ThemeProvider theme={temaGlobal}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          elevation={1}
-          sx={{
-            width: { sm: `calc(100% - ${anchoMenuLateral}px)` },
-            ml: { sm: `${anchoMenuLateral}px` },
-            bgcolor: 'background.paper',
-            color: 'text.primary',
-            backgroundImage: 'none',
-          }}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="abrir menu"
-              edge="start"
-              onClick={alternarMenu}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
-              {seccionActiva === 'panel' && 'Panel de Control'}
-              {seccionActiva === 'noticias' && 'Noticias Crypto'}
-              {seccionActiva === 'comentarios' && 'Comentarios de la Comunidad'}
-              {seccionActiva === 'tareas' && 'Lista de Tareas'}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        
-        <BarraLateral 
-          seccionActiva={seccionActiva} 
-          setSeccionActiva={setSeccionActiva} 
-          menuMovilAbierto={menuMovilAbierto}
-          alternarMenu={alternarMenu}
-        />
-        
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${anchoMenuLateral}px)` }, mt: 8 }}
-        >
-          {mostrarContenido()}
-        </Box>
-      </Box>
-    </ThemeProvider>
+        <Routes>
+          {/* Ruta pública: Login */}
+          <Route path="/" element={<Login />} />
+
+          {/* Rutas con layout (sidebar + navbar) */}
+          <Route element={<Layout />}>
+            <Route path="/panel" element={<PanelCriptos />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/noticias" element={<SeccionNoticias />} />
+            <Route path="/comentarios" element={<ForoComentarios />} />
+            <Route path="/tareas" element={<ListaTareas />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }

@@ -1,39 +1,42 @@
-import { 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemButton, 
-  ListItemIcon, 
-  ListItemText, 
-  Toolbar, 
-  Box, 
+import { NavLink } from 'react-router-dom';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Box,
   Typography,
-  Divider
+  Divider,
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import ForumIcon from '@mui/icons-material/Forum';
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const anchoMenuLateral = 240;
 
 interface PropsBarraLateral {
-  seccionActiva: string;
-  setSeccionActiva: (seccion: string) => void;
   menuMovilAbierto: boolean;
   alternarMenu: () => void;
   window?: () => Window;
 }
 
-export default function BarraLateral({ seccionActiva, setSeccionActiva, menuMovilAbierto, alternarMenu, window }: PropsBarraLateral) {
-  const contenedor = window !== undefined ? () => window().document.body : undefined;
+const opcionesMenu = [
+  { ruta: '/panel', etiqueta: 'Panel de Control', icono: <DashboardIcon /> },
+  { ruta: '/products', etiqueta: 'Comprar Cryptos', icono: <StorefrontIcon /> },
+  { ruta: '/cart', etiqueta: 'Mi Carrito', icono: <ShoppingCartIcon /> },
+  { ruta: '/noticias', etiqueta: 'Noticias', icono: <ArticleIcon /> },
+  { ruta: '/comentarios', etiqueta: 'Comentarios', icono: <ForumIcon /> },
+  { ruta: '/tareas', etiqueta: 'Lista de Tareas', icono: <ChecklistIcon /> },
+];
 
-  const opcionesMenu = [
-    { id: 'panel', etiqueta: 'Panel de Control', icono: <DashboardIcon /> },
-    { id: 'noticias', etiqueta: 'Noticias', icono: <ArticleIcon /> },
-    { id: 'comentarios', etiqueta: 'Comentarios', icono: <ForumIcon /> },
-    { id: 'tareas', etiqueta: 'Lista de Tareas', icono: <ChecklistIcon /> },
-  ];
+export default function BarraLateral({ menuMovilAbierto, alternarMenu, window }: PropsBarraLateral) {
+  const contenedor = window !== undefined ? () => window().document.body : undefined;
 
   const contenidoMenu = (
     <div>
@@ -45,31 +48,35 @@ export default function BarraLateral({ seccionActiva, setSeccionActiva, menuMovi
       <Divider />
       <List>
         {opcionesMenu.map((opcion) => (
-          <ListItem key={opcion.id} disablePadding>
-            <ListItemButton 
-              selected={seccionActiva === opcion.id}
-              onClick={() => {
-                setSeccionActiva(opcion.id);
-                if (window !== undefined) alternarMenu();
-              }}
-              sx={{
-                '&.Mui-selected': {
-                  backgroundColor: 'primary.light',
-                  color: 'primary.contrastText',
-                  '& .MuiListItemIcon-root': {
-                    color: 'primary.contrastText',
-                  }
-                },
-                '&.Mui-selected:hover': {
-                  backgroundColor: 'primary.main',
-                }
-              }}
+          <ListItem key={opcion.ruta} disablePadding>
+            <NavLink
+              to={opcion.ruta}
+              style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}
             >
-              <ListItemIcon sx={{ color: seccionActiva === opcion.id ? 'primary.contrastText' : 'inherit' }}>
-                {opcion.icono}
-              </ListItemIcon>
-              <ListItemText primary={opcion.etiqueta} />
-            </ListItemButton>
+              {({ isActive }) => (
+                <ListItemButton
+                  selected={isActive}
+                  onClick={alternarMenu}
+                  sx={{
+                    '&.Mui-selected': {
+                      backgroundColor: 'primary.main',
+                      color: 'primary.contrastText',
+                      '& .MuiListItemIcon-root': {
+                        color: 'primary.contrastText',
+                      },
+                    },
+                    '&.Mui-selected:hover': {
+                      backgroundColor: 'primary.dark',
+                    },
+                  }}
+                >
+                  <ListItemIcon sx={{ color: isActive ? 'primary.contrastText' : 'inherit' }}>
+                    {opcion.icono}
+                  </ListItemIcon>
+                  <ListItemText primary={opcion.etiqueta} />
+                </ListItemButton>
+              )}
+            </NavLink>
           </ListItem>
         ))}
       </List>
@@ -77,18 +84,13 @@ export default function BarraLateral({ seccionActiva, setSeccionActiva, menuMovi
   );
 
   return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: anchoMenuLateral }, flexShrink: { sm: 0 } }}
-    >
+    <Box component="nav" sx={{ width: { sm: anchoMenuLateral }, flexShrink: { sm: 0 } }}>
       <Drawer
         container={contenedor}
         variant="temporary"
         open={menuMovilAbierto}
         onClose={alternarMenu}
-        ModalProps={{
-          keepMounted: true,
-        }}
+        ModalProps={{ keepMounted: true }}
         sx={{
           display: { xs: 'block', sm: 'none' },
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: anchoMenuLateral, backgroundImage: 'none' },
