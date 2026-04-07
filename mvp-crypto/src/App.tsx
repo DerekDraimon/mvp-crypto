@@ -92,19 +92,18 @@ export default function App() {
           {/* Ruta pública: Login */}
           <Route path="/" element={<Login />} />
 
-          {/* Rutas con layout (sidebar + navbar) */}
-          <Route element={<Layout />}>
+          {/* Rutas con layout (sidebar + navbar) — todas requieren login */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
             <Route path="/panel" element={<PanelCriptos />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
-            <Route
-              path="/cart"
-              element={
-                <ProtectedRoute>
-                  <Cart />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/noticias" element={<SeccionNoticias />} />
             <Route path="/comentarios" element={<ForoComentarios />} />
             <Route path="/tareas" element={<ListaTareas />} />

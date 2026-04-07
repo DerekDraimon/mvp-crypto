@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -16,6 +16,9 @@ export default function Login() {
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const isLogged = localStorage.getItem('isLogged') === 'true';
+  if (isLogged) return <Navigate to="/panel" />;
 
   const manejarLogin = () => {
     if (usuario === USUARIO_VALIDO && contrasena === CONTRASENA_VALIDA) {
