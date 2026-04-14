@@ -6,7 +6,7 @@ interface ResultadoFetch<T> {
   error: string | null;
 }
 
-function useFetch<T>(url: string): ResultadoFetch<T> {
+function useFetch<T>(url: string): Readonly<ResultadoFetch<T>> {
   const [data, setData] = useState<T | null>(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);

@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import Pokemon from './pages/Pokemon';
 
 import PanelCriptos from './components/PanelCriptos';
 import SeccionNoticias from './components/SeccionNoticias';
@@ -107,6 +108,7 @@ export default function App() {
             <Route path="/noticias" element={<SeccionNoticias />} />
             <Route path="/comentarios" element={<ForoComentarios />} />
             <Route path="/tareas" element={<ListaTareas />} />
+            <Route path="/pokemon" element={<Pokemon />} />
           </Route>
         </Routes>
       </ThemeProvider>

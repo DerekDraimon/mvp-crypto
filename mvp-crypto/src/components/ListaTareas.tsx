@@ -22,25 +22,33 @@ interface Tarea {
   completada: boolean;
 }
 
+type NuevaTareaInput = Omit<Tarea, 'id' | 'completada'>;
+
 export default function ListaTareas() {
   const [tareas, setTareas] = useState<Tarea[]>([]);
   const [nuevaTarea, setNuevaTarea] = useState('');
-  const [siguienteId, setSiguienteId] = useState(3);
+  const [siguienteId, setSiguienteId] = useState(1);
   const [crypto, setCrypto] = useState('');
   const [filtro, setFiltro] = useState('');
 
   const tareasFiltradas = filtro ? tareas.filter((t) => t.crypto === filtro) : tareas;
 
+  const actualizarTarea = (id: number, cambios: Partial<Omit<Tarea, 'id'>>) => {
+    setTareas(tareas.map((t) => (t.id === id ? { ...t, ...cambios } : t)));
+  };
+
   const agregarTarea = () => {
-    if (nuevaTarea.trim() !== '') {
-      setTareas([...tareas, { id: siguienteId, texto: nuevaTarea.trim(), crypto: crypto, completada: false }]);
+    const input: NuevaTareaInput = { texto: nuevaTarea.trim(), crypto };
+    if (input.texto !== '') {
+      setTareas([...tareas, { id: siguienteId, ...input, completada: false }]);
       setSiguienteId(siguienteId + 1);
       setNuevaTarea('');
     }
   };
 
   const alternarCompletada = (id: number) => {
-    setTareas(tareas.map((t) => (t.id === id ? { ...t, completada: !t.completada } : t)));
+    const tarea = tareas.find((t) => t.id === id);
+    if (tarea) actualizarTarea(id, { completada: !tarea.completada });
   };
 
   const eliminarTarea = (id: number) => {

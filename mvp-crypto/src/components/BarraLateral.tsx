@@ -1,3 +1,4 @@
+import type React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Drawer,
@@ -15,10 +16,17 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import ForumIcon from '@mui/icons-material/Forum';
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const anchoMenuLateral = 240;
+
+interface OpcionMenu {
+  ruta: string;
+  etiqueta: string;
+  icono: React.ReactElement;
+}
 
 interface PropsBarraLateral {
   menuMovilAbierto: boolean;
@@ -26,13 +34,14 @@ interface PropsBarraLateral {
   window?: () => Window;
 }
 
-const opcionesMenu = [
+const opcionesMenu: Readonly<OpcionMenu[]> = [
   { ruta: '/panel', etiqueta: 'Panel de Control', icono: <DashboardIcon /> },
   { ruta: '/products', etiqueta: 'Comprar Cryptos', icono: <StorefrontIcon /> },
   { ruta: '/cart', etiqueta: 'Mi Carrito', icono: <ShoppingCartIcon /> },
   { ruta: '/noticias', etiqueta: 'Noticias', icono: <ArticleIcon /> },
   { ruta: '/comentarios', etiqueta: 'Comentarios', icono: <ForumIcon /> },
   { ruta: '/tareas', etiqueta: 'Lista de Tareas', icono: <ChecklistIcon /> },
+  { ruta: '/pokemon', etiqueta: 'Pokédex', icono: <CatchingPokemonIcon /> },
 ];
 
 export default function BarraLateral({ menuMovilAbierto, alternarMenu, window }: PropsBarraLateral) {
