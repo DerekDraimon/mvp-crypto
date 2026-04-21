@@ -70,8 +70,8 @@ export default function ProductDetail() {
 
   if (cargando) {
     return (
-      <Box>
-        <CircularProgress />
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
+        <CircularProgress color="warning" />
       </Box>
     );
   }
@@ -144,29 +144,39 @@ export default function ProductDetail() {
   );
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start' }}>
 
       {/* Columna izquierda */}
-      <Box>
+      <Box sx={{ width: '38%', minWidth: 280, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
         {/* Tarjeta de saldo */}
-        <Paper elevation={3}>
-          <Typography variant="caption">
+        <Paper elevation={3} sx={{ bgcolor: 'primary.main', borderRadius: 2, p: 3 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: 'primary.contrastText', opacity: 0.7, letterSpacing: 1, fontWeight: 500 }}
+          >
             SALDO EN {simbolo} ({simbolo})
           </Typography>
-          <Typography variant="h4">
-            {saldoBTC.toFixed(8)} {simbolo}
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 'bold', mt: 1, mb: 0.5, color: 'primary.contrastText', lineHeight: 1.2 }}
+          >
+            {saldoBTC.toFixed(8)}<br />{simbolo}
           </Typography>
-          <Typography variant="body2">
-            ≈ ${valorEnUSD.toLocaleString('en-US', { maximumFractionDigits: 2 })} USD | Cash: ${cashUSD.toLocaleString('en-US', { maximumFractionDigits: 2 })}
+          <Typography variant="body2" sx={{ color: 'primary.contrastText', opacity: 0.7, mt: 1 }}>
+            ≈ ${valorEnUSD.toLocaleString('en-US', { maximumFractionDigits: 2 })} USD&nbsp;|&nbsp;Cash: ${cashUSD.toLocaleString('en-US', { maximumFractionDigits: 2 })}
           </Typography>
         </Paper>
 
         {/* Formulario */}
-        <Paper variant="outlined">
-          <Typography variant="h6">Operar Mercado</Typography>
+        <Paper variant="outlined" sx={{ borderRadius: 2, p: 3 }}>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+            Operar Mercado
+          </Typography>
 
-          <Typography variant="body2">Inversión (USD)</Typography>
+          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
+            Inversión (USD)
+          </Typography>
           <TextField
             fullWidth
             type="number"
@@ -174,19 +184,25 @@ export default function ProductDetail() {
             value={inversion}
             onChange={(e) => setInversion(e.target.value)}
             size="small"
+            sx={{ mb: 2 }}
             inputProps={{ min: 0 }}
           />
 
-          <Typography variant="body2">Precio Actual {simbolo}</Typography>
+          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
+            Precio Actual {simbolo}
+          </Typography>
           <TextField
             fullWidth
             value={`$${precioActual.toLocaleString('en-US')}`}
             size="small"
             disabled
+            sx={{ mb: 2 }}
           />
 
-          <Typography variant="body2">Operación</Typography>
-          <FormControl fullWidth size="small">
+          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
+            Operación
+          </Typography>
+          <FormControl fullWidth size="small" sx={{ mb: 3 }}>
             <Select
               value={operacion}
               onChange={(e) => setOperacion(e.target.value as 'compra' | 'venta')}
@@ -196,17 +212,26 @@ export default function ProductDetail() {
             </Select>
           </FormControl>
 
-          <Button fullWidth variant="contained" color="warning" size="large" onClick={ejecutarOrden}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="warning"
+            size="large"
+            onClick={ejecutarOrden}
+            sx={{ fontWeight: 'bold' }}
+          >
             Ejecutar Orden
           </Button>
         </Paper>
       </Box>
 
       {/* Columna derecha */}
-      <Box>
-        <Box>
-          <Typography variant="h5">Historial de Movimientos</Typography>
-          <Box>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
+          <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+            Historial de Movimientos
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <TextField
               size="small"
               placeholder="Buscar por categoría..."
@@ -220,33 +245,49 @@ export default function ProductDetail() {
                 ),
               }}
             />
-            <Button variant="outlined" size="small" color="inherit" onClick={limpiarHistorial}>
+            <Button
+              variant="outlined"
+              size="small"
+              color="inherit"
+              onClick={limpiarHistorial}
+              sx={{ whiteSpace: 'nowrap' }}
+            >
               Limpiar Historial
             </Button>
           </Box>
         </Box>
 
         {historialFiltrado.length === 0 ? (
-          <Box>
+          <Box
+            sx={{
+              border: '2px dashed',
+              borderColor: 'divider',
+              borderRadius: 2,
+              p: 6,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Typography variant="body1" color="text.secondary">
               No hay órdenes ejecutadas.
             </Typography>
           </Box>
         ) : (
-          <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {historialFiltrado.map((orden) => (
-              <Paper key={orden.id} variant="outlined">
-                <Box>
+              <Paper key={orden.id} variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Box>
-                    <Typography variant="body2">
+                    <Typography variant="body2" sx={{ fontWeight: 'bold', textTransform: 'capitalize' }}>
                       {orden.tipo === 'compra' ? '🟢' : '🔴'} {orden.tipo} {orden.simbolo}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {orden.fecha}
                     </Typography>
                   </Box>
-                  <Box>
-                    <Typography variant="body2">
+                  <Box sx={{ textAlign: 'right' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
                       ${orden.monto.toLocaleString('en-US', { maximumFractionDigits: 2 })} USD
                     </Typography>
                     <Typography variant="caption" color="text.secondary">

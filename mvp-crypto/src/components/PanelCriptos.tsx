@@ -10,26 +10,29 @@ export default function PanelCriptos() {
       </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <TarjetaCripto 
-          titulo="Bitcoin (BTC)"
+        <TarjetaCripto
+          nombre="Bitcoin"
+          simbolo="BTC"
           precio="$69,420.00"
           cambio="2.4%"
           esPositivo={true}
-          accion={<BotonAccion texto="Comprar BTC" size="small" />}
+          accion={<BotonAccion texto="Comprar" size="small" />}
         />
-        <TarjetaCripto 
-          titulo="Ethereum (ETH)"
+        <TarjetaCripto
+          nombre="Ethereum"
+          simbolo="ETH"
           precio="$3,550.00"
           cambio="5.1%"
           esPositivo={true}
-          accion={<BotonAccion texto="Comprar ETH" size="small" />}
+          accion={<BotonAccion texto="Comprar" size="small" />}
         />
-        <TarjetaCripto 
-          titulo="Solana (SOL)"
+        <TarjetaCripto
+          nombre="Solana"
+          simbolo="SOL"
           precio="$180.20"
           cambio="1.2%"
           esPositivo={false}
-          accion={<BotonAccion texto="Comprar SOL" size="small" />}
+          accion={<BotonAccion texto="Comprar" size="small" />}
         />
       </Box>
     </Box>
