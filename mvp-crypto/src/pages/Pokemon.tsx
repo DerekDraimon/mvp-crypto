@@ -165,7 +165,7 @@ export default function Pokemon() {
         {pokemonesFiltrados.map((pokemon) => {
           const enCarrito = agregados.has(pokemon.id);
           return (
-            <Grid item xs={6} sm={4} md={3} lg={2} key={pokemon.id}>
+            <Grid size={{ xs: 6, sm: 4, md: 3, lg: 2 }} key={pokemon.id}>
               <Card sx={{
                 borderRadius: 3,
                 textAlign: 'center',

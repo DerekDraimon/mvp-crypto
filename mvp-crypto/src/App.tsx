@@ -9,11 +9,14 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Pokemon from './pages/Pokemon';
+import Practicas from './pages/Practicas';
 
 import PanelCriptos from './components/PanelCriptos';
 import SeccionNoticias from './components/SeccionNoticias';
 import ForoComentarios from './components/ForoComentarios';
 import ListaTareas from './components/ListaTareas';
+
+import { supabase } from './lib/supabaseClient';
 
 const temaGlobal = createTheme({
   palette: {
@@ -84,6 +87,12 @@ const temaGlobal = createTheme({
   },
 });
 
+const cargarDatos = async () => {
+
+  const { data } = await supabase.from('transacciones').select('*');
+  console.log(data);
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -109,9 +118,11 @@ export default function App() {
             <Route path="/comentarios" element={<ForoComentarios />} />
             <Route path="/tareas" element={<ListaTareas />} />
             <Route path="/pokemon" element={<Pokemon />} />
+            <Route path="/practicas" element={<Practicas />} />
           </Route>
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
   );
 }
+cargarDatos();

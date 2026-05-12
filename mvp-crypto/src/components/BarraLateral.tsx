@@ -19,6 +19,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SchoolIcon from '@mui/icons-material/School';
 
 const anchoMenuLateral = 240;
 
@@ -42,6 +43,7 @@ const opcionesMenu: Readonly<OpcionMenu[]> = [
   { ruta: '/comentarios', etiqueta: 'Comentarios', icono: <ForumIcon /> },
   { ruta: '/tareas', etiqueta: 'Lista de Tareas', icono: <ChecklistIcon /> },
   { ruta: '/pokemon', etiqueta: 'Pokédex', icono: <CatchingPokemonIcon /> },
+  { ruta: '/practicas', etiqueta: 'Prácticas', icono: <SchoolIcon /> },
 ];
 
 export default function BarraLateral({ menuMovilAbierto, alternarMenu, window }: PropsBarraLateral) {
